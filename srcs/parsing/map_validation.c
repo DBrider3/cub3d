@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:06:16 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/16 16:17:38 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/18 06:06:27 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ static int		map_check_validation(t_map *m, int i, int j)
 	return (NO_ERROR);
 }
 
-static void		position_check(char c, t_game *g, int i, int j)
+static void		position_check(char c, t_game *g, int x, int y)
 {
 	if (ft_strchr(POS, c))
 	{
 		if (g->pos_x == -1 || g->pos_y == -1)
 		{
-			g->pos_x = i;
-			g->pos_y = j;
+			g->pos_x = x;
+			g->pos_y = y;
 			if (c == 'N')
 				g->dir = 0;
 			else if (c == 'W')
@@ -60,30 +60,37 @@ static void		position_check(char c, t_game *g, int i, int j)
 	}
 }
 
-void			map_check_main(t_map *m, t_game *g)
+static void		sprite_check(char c, t_sprite *s)
 {
-	int		i;
-	int		j;
+	if (c == '2')
+		s->num++;
+}
 
-	i = 0;
-	while (i < m->index)
+void			map_check_main(t_map *m, t_game *g, t_sprite *s)
+// void			map_check_main(t_map *m, t_game *g)
+{
+	int		x;
+	int		y;
+
+	x = -1;
+	while (++x < m->index)
 	{
-		j = 0;
-		if (ft_strlen(m->map[i]) == 0)
+		y = 0;
+		if (ft_strlen(m->map[x]) == 0)
 			exit_error("map error");
-		while (m->map[i][j] != 0)
+		while (m->map[x][y] != 0)
 		{
-			if (map_check_basic(m->map[i][j]))
+			if (map_check_basic(m->map[x][y]))
 				exit_error("map error");
-			if (m->map[i][j] != '1' && m->map[i][j] != ' ')
+			if (m->map[x][y] != '1' && m->map[x][y] != ' ')
 			{
-				if (map_check_validation(m, i, j))
+				if (map_check_validation(m, x, y))
 					exit_error("map error");
-				position_check(m->map[i][j], g, i, j);
+				position_check(m->map[x][y], g, x, y);
+				sprite_check(m->map[x][y], s);
 			}
-			j++;
+			y++;
 		}
-		i++;
 	}
 	if (g->pos_x == -1 || g->pos_y == -1)
 		exit_error("no player exists");

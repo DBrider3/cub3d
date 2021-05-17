@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 21:27:11 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:18 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/18 04:12:36 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void		game_main(t_game *g, t_options *op)
 int		game_loop(t_game *g)
 {
 
-	// t_raycast rc;
-	// calc(g, &rc);
 	calc(g);
 	key_update(g, g->map);
 	// draw(g);

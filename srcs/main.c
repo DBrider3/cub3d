@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 18:12:15 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/16 16:16:10 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/18 05:00:45 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,19 @@ static void start_mlx(t_options *op, t_game *g)
 int		main(int argc, char *argv[])
 {
 	t_options	op;
-	t_game	game;
+	t_game		game;
+	t_sprite 	s;
 
 	if (argc != 2)
 		exit_error("argument number is not appropriate");
-	if (parse_main(argv[1], &op, &game) == ERROR)
+	if (parse_main(argv[1], &op, &game, &s) == ERROR)
 		exit_error("not the correct parsing");
 	// if (argc == 3 && ft_strncmp(argv[2], "--save", ft_strlen(argv[2])));
 	game.mlx = mlx_init();
 	screen_check(op, &game);
 	game_main(&game, &op);
 	// final_free(&op);
+	// printf("[%d]\n", s.num);
 	start_mlx(&op, &game);
 
 	return (0);

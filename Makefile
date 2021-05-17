@@ -6,13 +6,14 @@
 #    By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/14 18:06:38 by dcho              #+#    #+#              #
-#    Updated: 2021/05/15 21:13:18 by dcho             ###   ########.fr        #
+#    Updated: 2021/05/18 06:05:48 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address -I ./includes -I ./libft
+# CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address -I ./includes -I ./libft
+CFLAGS =  -g -fsanitize=address -I ./includes -I ./libft
 # CFLAGS = -Wall -Wextra -Werror -I ./includes -I ./libft
 
 LDFLAGS = -L . -L $(LIBMLX_DIR) -L $(LIBFT_DIR)
@@ -22,23 +23,23 @@ RM = rm -f
 NAME = cub3D
 
 SRC =	main.c						\
+		init.c						\
 		gnl/get_next_line.c			\
 		gnl/get_next_line_utils.c	\
-		init.c						\
-		parser.c					\
-		parser_utils.c				\
-		parser_identifier.c			\
-		parser_identifier_sub.c		\
-		parser_map.c				\
-		map_validation.c			\
+		parsing/parser.c					\
+		parsing/parser_utils.c				\
+		parsing/parser_identifier.c			\
+		parsing/parser_identifier_sub.c		\
+		parsing/parser_map.c				\
+		parsing/map_validation.c			\
+		parsing/parser_dup.c				\
 		error.c						\
-		parser_dup.c				\
 		free.c						\
-		game.c						\
-		key_handling.c				\
-		texture.c					\
-		calc.c						\
-		color.c
+		game/game.c						\
+		game/key_handling.c				\
+		game/texture.c					\
+		game/calc.c						\
+		game/color.c
 
 
 SRC_DIR = ./srcs/

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 18:06:04 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:21 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/18 06:05:55 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,18 @@ typedef struct		s_img
 
 typedef struct		s_map
 {
-	char	**map;
-	int		index;
-	int		size;
-	int		max_col;
+	char			**map;
+	int				index;
+	int				size;
+	int				max_col;
 }					t_map;
+
+typedef struct		s_sprite
+{
+	int				num;
+	double			**loc_sprite;
+	double			*sprite_dist;
+}					t_sprite;
 
 typedef struct		s_game
 {
@@ -102,6 +109,7 @@ typedef struct		s_game
 	int				c_color;
 	t_img			img;
 	t_map			*map;
+	t_sprite		*sprite;
 }					t_game;
 
 typedef struct		s_raycast
@@ -132,6 +140,7 @@ typedef struct		s_raycast
 	int				color; //
 }					t_raycast;
 
+
 // typedef struct		s_calc
 // {
 
@@ -160,8 +169,10 @@ typedef struct		s_options
 
 
 
-int					parse_main(char *s, t_options *op, t_game *g);
-void				init_start(t_options *op, t_game *g);
+int					parse_main(char *f, t_options *op, t_game *g, t_sprite *s);
+// int					parse_main(char *f, t_options *op, t_game *g);
+void				init_start(t_options *op, t_game *g, t_sprite *s);
+void				init_sprite(t_sprite *s);
 int					parse_identifier(char *line, t_options *op);
 int					input_fc(char **input, t_options *op, int flag);
 int					input_file_one(char **input, t_options *op, int flag);
@@ -175,7 +186,7 @@ int					new_map(t_map **m);
 int					add_map_line(t_map *m, char *line);
 void				del_map(t_map *m);
 int					find_map(char *line, int *flag, t_options *op);
-void				map_check_main(t_map *m, t_game *g);
+void				map_check_main(t_map *m, t_game *g, t_sprite *s);
 void				check_duplication_one(t_options *op, int flag);
 void				check_duplication_two(t_options *op, int flag);
 void				final_free(t_options *op);
