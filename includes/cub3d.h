@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 18:06:04 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 22:01:27 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 19:38:21 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@
 
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
-# define texWidth 64
-# define texHeight 64
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 // # define mapWidth 24
 // # define mapHeight 24
 # define K_A 0
@@ -84,12 +84,12 @@ typedef struct		s_game
 	double			dir;
 	int				width;
 	int				height;
-	double			posx;
-	double 			posy;
-	double 			dirx;
-	double 			diry;
-	double 			planex;
-	double 			planey;
+	double			pos_x;
+	double 			pos_y;
+	double 			dir_x;
+	double 			dir_y;
+	double 			plane_x;
+	double 			plane_y;
 	int				**texture;
 	double			movespeed;
 	double			rotspeed;
@@ -104,6 +104,33 @@ typedef struct		s_game
 	t_map			*map;
 }					t_game;
 
+typedef struct		s_raycast
+{
+	double			camera_x; //
+	double			raydir_x; //
+	double			raydir_y; //
+	int				map_x; //
+	int				map_y; //
+	double			sd_x; //
+	double			sd_y; //
+	double			dd_x; //
+	double			dd_y; //
+	int				step_x; //
+	int				step_y; //
+	// int				hit; //
+	int				side; //
+	int				l_height; //
+	int				tex_num; //
+	int				draw_start; //
+	int				draw_end; //
+	double				pwd; //
+	double			wall_x; //
+	int				tex_x; //
+	int				tex_y; //
+	double			step; //
+	double			tex_pos; //
+	int				color; //
+}					t_raycast;
 
 // typedef struct		s_calc
 // {
@@ -164,8 +191,9 @@ void	load_texture(t_game *g, t_options *op);
 void	load_image(t_game *g, int *texture, char *path, t_img *img);
 int		key_press(int key, t_game *g);
 int		key_release(int key, t_game *g);
-void	key_update(t_game *g, t_map *m);
 // void	draw(t_game *info);
+void	key_update(t_game *g, t_map *m);
 void	calc(t_game *info);
+// void	calc(t_game *info, t_raycast *rc);
 int	create_trgb(int r, int g, int b);
 #endif

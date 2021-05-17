@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 23:17:41 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 19:32:55 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 16:20:05 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ void	key_update(t_game *g, t_map *m)
 {
 	if (g->key_w)
 	{
-		if (m->map[(int)(g->posx + g->dirx * g->movespeed)]
-		[(int)(g->posy)] != '1')
-			g->posx += g->dirx * g->movespeed;
-		if (m->map[(int)(g->posx)]
-		[(int)(g->posy + g->diry * g->movespeed)] != '1')
-			g->posy += g->diry * g->movespeed;
+		if (m->map[(int)(g->pos_x + g->dir_x * g->movespeed)]
+		[(int)(g->pos_y)] != '1')
+			g->pos_x += g->dir_x * g->movespeed;
+		if (m->map[(int)(g->pos_x)]
+		[(int)(g->pos_y + g->dir_y * g->movespeed)] != '1')
+			g->pos_y += g->dir_y * g->movespeed;
 	}
 	if (g->key_s)
 	{
-		if (m->map[(int)(g->posx - g->dirx * g->movespeed)]
-		[(int)(g->posy)] != '1')
-			g->posx -= g->dirx * g->movespeed;
-		if (m->map[(int)(g->posx)]
-		[(int)(g->posy - g->diry * g->movespeed)] != '1')
-			g->posy -= g->diry * g->movespeed;
+		if (m->map[(int)(g->pos_x - g->dir_x * g->movespeed)]
+		[(int)(g->pos_y)] != '1')
+			g->pos_x -= g->dir_x * g->movespeed;
+		if (m->map[(int)(g->pos_x)]
+		[(int)(g->pos_y - g->dir_y * g->movespeed)] != '1')
+			g->pos_y -= g->dir_y * g->movespeed;
 	}
 	if (g->key_d)
 		rotation(g, -(g->rotspeed));

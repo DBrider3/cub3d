@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:06:16 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 19:26:05 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 16:17:38 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static void		position_check(char c, t_game *g, int i, int j)
 {
 	if (ft_strchr(POS, c))
 	{
-		if (g->posx == -1 || g->posy == -1)
+		if (g->pos_x == -1 || g->pos_y == -1)
 		{
-			g->posx = i;
-			g->posy = j;
+			g->pos_x = i;
+			g->pos_y = j;
 			if (c == 'N')
 				g->dir = 0;
 			else if (c == 'W')
@@ -85,6 +85,6 @@ void			map_check_main(t_map *m, t_game *g)
 		}
 		i++;
 	}
-	if (g->posx == -1 || g->posy == -1)
+	if (g->pos_x == -1 || g->pos_y == -1)
 		exit_error("no player exists");
 }

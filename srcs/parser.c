@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 22:12:38 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 19:35:46 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 16:16:55 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int				parse_main(char *s, t_options *op, t_game *g)
 	}
 	free(line);
 	close(fd);
-	g->posx = -1;
-	g->posy = -1;
+	g->pos_x = -1;
+	g->pos_y = -1;
 	map_check_main(op->map, g);
 	g->map = op->map;
 	return (NO_ERROR);

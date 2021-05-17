@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 21:27:11 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 21:31:48 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 19:38:18 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	rotation(t_game *g, double degree)
 	if (degree)
 	{
 		rad = M_PI * degree / 180;
-		olddirx = g->dirx;
-		g->dirx = g->dirx * cos(rad) - g->diry * sin(rad);
-		g->diry = olddirx * sin(rad) + g->diry * cos(rad);
-		oldplanex = g->planex;
-		g->planex = g->planex * cos(rad) - g->planey * sin(rad);
-		g->planey = oldplanex * sin(rad) + g->planey * cos(rad);
+		olddirx = g->dir_x;
+		g->dir_x = g->dir_x * cos(rad) - g->dir_y * sin(rad);
+		g->dir_y = olddirx * sin(rad) + g->dir_y * cos(rad);
+		oldplanex = g->plane_x;
+		g->plane_x = g->plane_x * cos(rad) - g->plane_y * sin(rad);
+		g->plane_y = oldplanex * sin(rad) + g->plane_y * cos(rad);
 	}
 }
 
@@ -43,6 +43,9 @@ void		game_main(t_game *g, t_options *op)
 
 int		game_loop(t_game *g)
 {
+
+	// t_raycast rc;
+	// calc(g, &rc);
 	calc(g);
 	key_update(g, g->map);
 	// draw(g);

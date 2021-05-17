@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:47:56 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 21:58:38 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/18 00:05:13 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,142 +31,200 @@ static void	game_display(t_game *g)
 	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, g->win);
 }
 
-void	calc(t_game *info)
+static void calc_beginning(t_game *g, t_raycast *rc, int x)
 {
-	int	x;
+	rc->camera_x = 2 * x / (double)g->width - 1;
+	rc->raydir_x = g->dir_x + g->plane_x * rc->camera_x;
+	rc->raydir_y = g->dir_y + g->plane_y * rc->camera_x;
+	rc->map_x = (int)g->pos_x;
+	rc->map_y = (int)g->pos_y;
+	rc->dd_x = fabs(1 / rc->raydir_x);
+	rc->dd_y = fabs(1 / rc->raydir_y);
+	rc->step_x = rc->raydir_x < 0 ? -1 : 1;
+	rc->step_y = rc->raydir_y < 0 ? -1 : 1;
+	rc->sd_x = rc->raydir_x < 0 ? (g->pos_x - rc->map_x) * rc->dd_x : \
+									(rc->map_x + 1.0 - g->pos_x) * rc->dd_x;
+	rc->sd_y = rc->raydir_y < 0 ? (g->pos_y - rc->map_y) * rc->dd_y : \
+									(rc->map_y + 1.0 - g->pos_y) * rc->dd_y;
+}
+
+static void calc_dda(t_game *g, t_raycast *rc)
+{
+	int		hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (rc->sd_x < rc->sd_y)
+		{
+			rc->sd_x += rc->dd_x;
+			rc->map_x += rc->step_x;
+			rc->side = 0;
+		}
+		else
+		{
+			rc->sd_y += rc->dd_y;
+			rc->map_y += rc->step_y;
+			rc->side = 1;
+		}
+		if (g->map->map[rc->map_x][rc->map_y] == '1')
+			hit = 1;
+	}
+}
+
+static void	calc_texture_first(t_game *g, t_raycast *rc)
+{
+	if (rc->side == 0)
+	{
+		rc->pwd = (rc->map_x - g->pos_x + (1 - rc->step_x) / 2) / rc->raydir_x;
+		rc->tex_num = rc->step_x > 0 ? 1 : 0;
+		rc->wall_x = g->pos_y + rc->pwd * rc->raydir_y;
+	}
+	else
+	{
+		rc->pwd = (rc->map_y - g->pos_y + (1 - rc->step_y) / 2) / rc->raydir_y;
+		rc->tex_num = rc->step_y > 0 ? 3 : 2;
+		rc->wall_x = g->pos_x + rc->pwd * rc->raydir_x;
+	}
+	rc->l_height = rc->pwd == 0 ? 0 : (int)(g->height / rc->pwd);
+	rc->draw_start = g->height / 2 - rc->l_height / 2;
+	rc->draw_end = g->height / 2 + rc->l_height / 2;
+	if (rc->draw_start < 0)
+		rc->draw_start = 0;
+	if (rc->draw_end >= g->height)
+		rc->draw_end = g->height - 1;
+
+	rc->tex_x = (int)((rc->wall_x - floor(rc->wall_x)) * (double)TEX_WIDTH);
+	if (rc->tex_num == 1 || rc->tex_num == 2)
+		rc->tex_x = TEX_WIDTH - rc->tex_x - 1;
+	rc->step = 1.0 * TEX_HEIGHT / rc->l_height;
+	rc->tex_pos = (rc->draw_start - g->height / 2 + rc->l_height / 2) * rc->step;
+	// rc->tex_pos = 0.0;
+}
+
+void	calc(t_game *g)
+{
+	t_raycast	rc;
+	int			x;
 
 	x = 0;
-	while (x < info->width)
+	// ft_bzero(&rc, sizeof(rc));
+	while (x < g->width)
 	{
-		double cameraX = 2 * x / (double)info->width - 1;
-		double rayDirX = info->dirx + info->planex * cameraX;
-		double rayDirY = info->diry + info->planey * cameraX;
+		calc_beginning(g, &rc, x);
+		calc_dda(g, &rc);
+		verLine(g, x, 0, g->height / 2, g->c_color);
+		verLine(g, x, g->height / 2, g->height, g->f_color);
+		calc_texture_first(g, &rc);
 
-		int mapX = (int)info->posx;
-		int mapY = (int)info->posy;
-
-		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
-
-		 //length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);
-		double deltaDistY = fabs(1 / rayDirY);
-
-
-		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
-
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-
-		if (rayDirX < 0)
+		for(int y = rc.draw_start; y < rc.draw_end; y++)
 		{
-			stepX = -1;
-			sideDistX = (info->posx - mapX) * deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - info->posx) * deltaDistX;
-		}
-		if (rayDirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (info->posy - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - info->posy) * deltaDistY;
-		}
-
-		while (hit == 0)
-		{
-			//jump to next map square, OR in x-direction, OR in y-direction
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			// printf("%c\n", info->map->map[mapX][mapY]);
-			//Check if ray has hit a wall
-
-			if (info->map->map[mapX][mapY] == '1') hit = 1;
-		}
-
-		verLine(info, x, 0, info->height / 2, info->c_color);
-		verLine(info, x, info->height / 2, info->height, info->f_color);
-
-
-		int lineheight;
-		int	texnum;
-		int drawstart;
-		double perpwalldist;
-		double wallX; //where exactly the wall was hit
-
-
-		if (side == 0)
-		{
-			perpwalldist = (mapX - info->posx + (1 - stepX) / 2) / rayDirX;
-			texnum = stepX > 0 ? 1 : 0;
-			wallX = info->posy + perpwalldist * rayDirY;
-		}
-		else
-		{
-			perpwalldist = (mapY - info->posy + (1 - stepY) / 2) / rayDirY;
-			texnum = stepY > 0 ? 3 : 2;
-			wallX = info->posx + perpwalldist * rayDirX;
-		}
-
-
-		//Calculate height of line to draw on screen
-		if (perpwalldist == 0)
-			lineheight = 0;
-		else
-			lineheight = (int)(info->height / perpwalldist);
-
-		//calculate lowest and highest pixel to fill in current stripe
-		drawstart = -lineheight / 2 + info->height / 2;
-		if(drawstart < 0)
-			drawstart = 0;
-		int drawEnd = lineheight / 2 + info->height / 2;
-		if(drawEnd >= info->height)
-			drawEnd = info->height - 1;
-
-		wallX -= floor((wallX));
-		//x coordinate on the texture
-		int texX = (int)(wallX * (double)texWidth);
-		if (texnum == 1 || texnum == 2)
-			texX = texWidth - texX - 1;
-
-		double step = 1.0 * texHeight / lineheight;
-		// Starting texture coordinate
-		double texPos = (drawstart - info->height / 2 + lineheight / 2) * step;
-		for(int y = drawstart; y < drawEnd; y++)
-		{
-			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = (int)texPos & (texHeight - 1);
-			texPos += step;
-			int color = info->texture[texnum][texHeight * texY + texX];
-			//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-			if(side == 1) color = (color >> 1) & 8355711;
-			// info->buf[y][x] = color;
-
-			info->img.addr[y * info->img.size_l / 4 + x] = color;
+			rc.tex_y = (int)rc.tex_pos & (TEX_HEIGHT - 1);
+			rc.tex_pos += rc.step;
+			rc.color = g->texture[rc.tex_num][TEX_HEIGHT * rc.tex_y + rc.tex_x];
+			if(rc.side == 1) rc.color = (rc.color >> 1) & 8355711;
+			g->img.addr[y * g->img.size_l / 4 + x] = rc.color;
 		}
 		x++;
 	}
-	game_display(info);
+	game_display(g);
 }
+
+// void	calc(t_game *g, t_raycast *rc)
+// {
+// 	int			x;
+
+// 	x = 0;
+// 	while (x <g->width)
+// 	{
+// 		rc->camera_x = 2 * x / (double)g->width - 1;
+// 		rc->raydir_x = g->dir_x + g->plane_x * rc->camera_x;
+// 		rc->raydir_y = g->dir_y + g->plane_y * rc->camera_x;
+
+// 		rc->map_x = (int)g->pos_x;
+// 		rc->map_y = (int)g->pos_y;
+
+// 		rc->dd_x = fabs(1 / rc->raydir_x);
+// 		rc->dd_y = fabs(1 / rc->raydir_y);
+
+// 		rc->step_x = rc->raydir_x < 0 ? -1 : 1;
+// 		rc->step_y = rc->raydir_y < 0 ? -1 : 1;
+// 		rc->sd_x = rc->raydir_x < 0 ? (g->pos_x - rc->map_x) * rc->dd_x : \
+// 									(rc->map_x + 1.0 - g->pos_x) * rc->dd_x;
+// 		rc->sd_y = rc->raydir_y < 0 ? (g->pos_y - rc->map_y) * rc->dd_y : \
+// 									(rc->map_y + 1.0 - g->pos_y) * rc->dd_y;
+// 		int hit = 0; //was there a wall hit?
+// 		while (hit == 0)
+// 		{
+// 			if (rc->sd_x < rc->sd_y)
+// 			{
+// 				rc->sd_x += rc->dd_x;
+// 				rc->map_x += rc->step_x;
+// 				rc->side = 0;
+// 			}
+// 			else
+// 			{
+// 				rc->sd_y += rc->dd_y;
+// 				rc->map_y += rc->step_y;
+// 				rc->side = 1;
+// 			}
+// 			if (g->map->map[rc->map_x][rc->map_y] == '1')
+// 				hit = 1;
+// 		}
+// 		verLine(g, x, 0, g->height / 2, g->c_color);
+// 		verLine(g, x, g->height / 2, g->height, g->f_color);
+
+// 		if (rc->side == 0)
+// 		{
+// 			rc->pwd = (rc->map_x - g->pos_x + (1 - rc->step_x) / 2) / rc->raydir_x;
+// 			rc->tex_num = rc->step_x > 0 ? 1 : 0;
+// 			rc->wall_x = g->pos_y + rc->pwd * rc->raydir_y;
+// 		}
+// 		else
+// 		{
+// 			rc->pwd = (rc->map_y - g->pos_y + (1 - rc->step_y) / 2) / rc->raydir_y;
+// 			rc->tex_num = rc->step_y > 0 ? 3 : 2;
+// 			rc->wall_x = g->pos_x + rc->pwd * rc->raydir_x;
+// 		}
+
+// 		if (rc->pwd == 0)
+// 			rc->l_height = 0;
+// 		else
+// 		{
+// 			rc->l_height = (int)(g->height / rc->pwd);
+// 		}
+
+// 		// rc->l_height = rc->pwd == 0 ? 0 : (int)(g->height / rc->pwd);
+
+// 		rc->draw_start = -(rc->l_height) / 2 + g->height / 2; // 혹시?
+
+// 		if (rc->draw_start < 0)
+// 			rc->draw_start = 0;
+// 		rc->draw_end = rc->l_height / 2 + g->height / 2;
+// 		if (rc->draw_end >= g->height)
+// 			rc->draw_end = g->height - 1;
+
+// 		rc->wall_x -= floor((rc->wall_x)); // 혹시?
+// 		rc->tex_x = (int)(rc->wall_x * (double)TEX_WIDTH);
+// 		if (rc->tex_num == 1 || rc->tex_num == 2)
+// 			rc->tex_x = TEX_WIDTH - rc->tex_x - 1;
+// 		rc->step = 1.0 * TEX_HEIGHT / rc->l_height;
+// 		rc->tex_pos = (rc->draw_start - g->height / 2 + rc->l_height / 2) * rc->step;
+
+// 		for(int y = rc->draw_start; y < rc->draw_end; y++)
+// 		{
+// 			rc->tex_y = (int)(rc->tex_pos) & (TEX_HEIGHT - 1);
+// 			rc->tex_pos += rc->step;
+// 			rc->color = g->texture[rc->tex_num][TEX_HEIGHT * rc->tex_y + rc->tex_x];
+// 			if(rc->side == 1)
+// 				rc->color = (rc->color >> 1) & 8355711;
+
+// 			g->img.addr[y * g->img.size_l / 4 + x] = rc->color;
+// 		}
+// 		x++;
+// 	}
+// 	game_display(g);
+// }
 
 
 

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 19:23:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 21:11:39 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 17:03:07 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	init_start(t_options *op, t_game *g)
 
 void	init_direction(t_game *g)
 {
-	g->dirx = -1;
-	g->diry = 0;
-	g->planex = 0;
-	g->planey = 0.66;
+	g->dir_x = -1;
+	g->dir_y = 0;
+	g->plane_x = 0;
+	g->plane_y = 0.66;
 	g->movespeed = 0.05;
 	g->rotspeed = 2;
 }
@@ -39,7 +39,7 @@ void	game_init_allocation(t_game *g)
 	i = 0;
 	while (i < 5)
 	{
-		if (!(g->texture[i++] = ft_calloc((texHeight * texWidth), sizeof(int))))
+		if (!(g->texture[i++] = ft_calloc((TEX_HEIGHT * TEX_WIDTH), sizeof(int))))
 			exit_error("malloc error");
 	}
 }

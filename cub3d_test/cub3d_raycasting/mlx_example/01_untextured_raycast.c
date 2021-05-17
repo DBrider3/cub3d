@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 12:12:25 by yohan             #+#    #+#             */
-/*   Updated: 2021/05/14 22:13:36 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 21:47:39 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	calc(t_info *info)
 		int hit = 0; //was there a wall hit?
 		int side; //was a NS or a EW wall hit?
 		// 	side는 x,y 어떤 면에 부딪힌건지 알려줌
+		//  side 0 이면 x면(측), side 1 이면 y면(측)
 		if (rayDirX < 0)
 		{
 			stepX = -1;
@@ -177,9 +178,9 @@ void	calc(t_info *info)
 		//Calculate height of line to draw on screen
 		int lineHeight = (int)(height / perpWallDist);
 		/*
-		높이와 수직거리로 나눠서 그려야 할 라인 높이를 측정한다.
+		높이를 수직거리로 나눠서 그려야 할 라인 높이를 측정한다.
 		*/
-		int drawStart = -lineHeight / 2 + height / 2;
+		int drawStart = height / 2 - lineHeight / 2;
 		if(drawStart < 0)
 			drawStart = 0;
 		int drawEnd = lineHeight / 2 + height / 2;

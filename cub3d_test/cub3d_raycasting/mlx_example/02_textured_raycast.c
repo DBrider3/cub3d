@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:18:03 by yohlee            #+#    #+#             */
-/*   Updated: 2021/05/11 18:17:03 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/16 22:02:16 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,10 @@ void	calc(t_info *info)
 		else
 			wallX = info->posX + perpWallDist * rayDirX;
 		wallX -= floor(wallX);
+		/*
+		wall_x : 벽에 부딪혔을 때 가로 좌표
+		wall_y : 그 위치에서 수직으로 올린 벽 시작점
+		*/
 
 		// x coordinate on the texture
 		int texX = (int)(wallX * (double)texWidth);
@@ -196,6 +200,10 @@ void	calc(t_info *info)
 			texX = texWidth - texX - 1;
 		if (side == 1 && rayDirY < 0)
 			texX = texWidth - texX - 1;
+		/*
+		tex_x : 텍스쳐에 해당하는 x 위치
+		tex_y : 텍스쳐에 해당하는 y 위치
+		*/
 
 		// How much to increase the texture coordinate perscreen pixel
 		double step = 1.0 * texHeight / lineHeight;
