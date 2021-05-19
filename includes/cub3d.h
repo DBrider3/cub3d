@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 18:06:04 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/18 06:05:55 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 00:04:44 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define NO_ERROR 0
 # define INITAIL_SIZE 8
 # define FULLFLAG " 012EWSN"
-# define MAPFLAG "012EWSN"
+// # define MAPFLAG "012EWSN"
 # define POS "EWSN"
 # define RFLAG 1
 # define NOFLAG 2
@@ -44,6 +44,9 @@
 
 #include <math.h>
 
+#define uDiv 1
+#define vDiv 1
+#define vMove 0.0
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
 # define TEX_WIDTH 64
@@ -82,6 +85,23 @@ typedef struct		s_sprite
 	int				num;
 	double			**loc_sprite;
 	double			*sprite_dist;
+	double			sprite_x;
+	double			sprite_y;
+	double			invdet;
+	double			trans_x;
+	double			trans_y;
+	double			screen_x;
+	int				v_move_screen;
+	int				sprite_height;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				sprite_width;
+	int				tex_x;
+	int				tex_y;
+	int				d;
+	int				color;
 }					t_sprite;
 
 typedef struct		s_game
@@ -108,36 +128,36 @@ typedef struct		s_game
 	int				f_color;
 	int				c_color;
 	t_img			img;
+	double			*zbuf;
 	t_map			*map;
 	t_sprite		*sprite;
 }					t_game;
 
 typedef struct		s_raycast
 {
-	double			camera_x; //
-	double			raydir_x; //
-	double			raydir_y; //
-	int				map_x; //
-	int				map_y; //
-	double			sd_x; //
-	double			sd_y; //
-	double			dd_x; //
-	double			dd_y; //
-	int				step_x; //
-	int				step_y; //
-	// int				hit; //
-	int				side; //
-	int				l_height; //
-	int				tex_num; //
-	int				draw_start; //
-	int				draw_end; //
-	double				pwd; //
-	double			wall_x; //
-	int				tex_x; //
-	int				tex_y; //
-	double			step; //
-	double			tex_pos; //
-	int				color; //
+	double			camera_x;
+	double			raydir_x;
+	double			raydir_y;
+	int				map_x;
+	int				map_y;
+	double			sd_x;
+	double			sd_y;
+	double			dd_x;
+	double			dd_y;
+	int				step_x;
+	int				step_y;
+	int				side;
+	int				l_height;
+	int				tex_num;
+	int				draw_start;
+	int				draw_end;
+	double			pwd;
+	double			wall_x;
+	int				tex_x;
+	int				tex_y;
+	double			step;
+	double			tex_pos;
+	int				color;
 }					t_raycast;
 
 
@@ -186,12 +206,12 @@ int					new_map(t_map **m);
 int					add_map_line(t_map *m, char *line);
 void				del_map(t_map *m);
 int					find_map(char *line, int *flag, t_options *op);
-void				map_check_main(t_map *m, t_game *g, t_sprite *s);
+void				map_check_main(t_map *m, t_game *g);
 void				check_duplication_one(t_options *op, int flag);
 void				check_duplication_two(t_options *op, int flag);
 void				final_free(t_options *op);
 void				init_direction(t_game *g);
-void				game_init_allocation(t_game *g);
+void				init_texture(t_game *g);
 void				rotation(t_game *g, double degree);
 void		game_main(t_game *g, t_options *op);
 // void		game_main(t_game *g);

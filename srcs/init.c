@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 19:23:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/18 06:09:17 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/19 20:52:04 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	init_start(t_options *op, t_game *g, t_sprite *s)
 	ft_bzero(s, sizeof(*s));
 	ft_memset(op->f, -1, sizeof(op->f));
 	ft_memset(op->c, -1, sizeof(op->c));
+	g->pos_x = -1;
+	g->pos_y = -1;
+	g->sprite = s;
 }
 
 void	init_direction(t_game *g)
@@ -45,9 +48,10 @@ void	init_sprite(t_sprite *s)
 	}
 	if (!(s->sprite_dist = ft_calloc(s->num, sizeof(double))))
 		exit_error("malloc error");
+
 }
 
-void	game_init_allocation(t_game *g)
+void	init_texture(t_game *g)
 {
 	int		i;
 
@@ -59,4 +63,5 @@ void	game_init_allocation(t_game *g)
 		if (!(g->texture[i++] = ft_calloc((TEX_HEIGHT * TEX_WIDTH), sizeof(int))))
 			exit_error("malloc error");
 	}
+	g->zbuf = malloc(g->width * sizeof(double));
 }

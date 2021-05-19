@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:06:16 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/18 06:06:27 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 00:02:55 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ static int		map_check_basic(char c)
 
 static int		map_check_validation(t_map *m, int i, int j)
 {
-	int		x;
-
+	if (j >= ft_strlen(m->map[i]) - 1 || j < 1
+	|| i >= m->index - 1 || i < 1)
+		return (ERROR);
 	if ((int)ft_strlen(m->map[i + 1]) <= j
 	|| (int)ft_strlen(m->map[i - 1]) <= j)
 		return (ERROR);
-	x = ft_strlen(m->map[i]) - 1;
-	if (j >= x || j < 1 || i >= m->index - 1
-	|| i < 1)
+	if (m->map[i - 1][j] == ' ' || m->map[i + 1][j] == ' ' ||
+	m->map[i][j - 1] == ' ' || m->map[i][j + 1] == ' ')
 		return (ERROR);
-	if (ft_strchr(MAPFLAG, m->map[i - 1][j]) == 0 ||
-	ft_strchr(MAPFLAG, m->map[i + 1][j]) == 0 ||
-	ft_strchr(MAPFLAG, m->map[i][j - 1]) == 0 ||
-	ft_strchr(MAPFLAG, m->map[i][j + 1]) == 0)
-		return (ERROR);
+	// if (ft_strchr(MAPFLAG, m->map[i - 1][j]) == 0 ||
+	// ft_strchr(MAPFLAG, m->map[i + 1][j]) == 0 ||
+	// ft_strchr(MAPFLAG, m->map[i][j - 1]) == 0 ||
+	// ft_strchr(MAPFLAG, m->map[i][j + 1]) == 0)
+	// 	return (ERROR);
 	return (NO_ERROR);
 }
 
@@ -66,8 +66,7 @@ static void		sprite_check(char c, t_sprite *s)
 		s->num++;
 }
 
-void			map_check_main(t_map *m, t_game *g, t_sprite *s)
-// void			map_check_main(t_map *m, t_game *g)
+void			map_check_main(t_map *m, t_game *g)
 {
 	int		x;
 	int		y;
@@ -76,7 +75,7 @@ void			map_check_main(t_map *m, t_game *g, t_sprite *s)
 	while (++x < m->index)
 	{
 		y = 0;
-		if (ft_strlen(m->map[x]) == 0)
+		if (m->map[x][y] == '\0')
 			exit_error("map error");
 		while (m->map[x][y] != 0)
 		{
@@ -87,7 +86,7 @@ void			map_check_main(t_map *m, t_game *g, t_sprite *s)
 				if (map_check_validation(m, x, y))
 					exit_error("map error");
 				position_check(m->map[x][y], g, x, y);
-				sprite_check(m->map[x][y], s);
+				sprite_check(m->map[x][y], g->sprite);
 			}
 			y++;
 		}

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 21:27:11 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/18 04:12:36 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/19 20:52:44 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void	rotation(t_game *g, double degree)
 void		game_main(t_game *g, t_options *op)
 {
 	init_direction(g);
+	init_texture(g);
+	init_sprite(g->sprite);
 	g->f_color = create_trgb(op->f[0],op->f[1],op->f[2]);
 	g->c_color = create_trgb(op->c[0],op->c[1],op->c[2]);
 	rotation(g, g->dir);
-	game_init_allocation(g);
 	load_texture(g, op);
 }
 
