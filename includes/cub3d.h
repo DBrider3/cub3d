@@ -6,28 +6,28 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 18:06:04 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 00:04:44 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 15:28:21 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include "get_next_line.h"
-#include "libft.h"
-#include "mlx.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <errno.h>
+# include <string.h>
+# include <math.h>
+# include "get_next_line.h"
+# include "libft.h"
+# include "mlx.h"
 
 # define ERROR -1
 # define NO_ERROR 0
 # define INITAIL_SIZE 8
 # define FULLFLAG " 012EWSN"
-// # define MAPFLAG "012EWSN"
 # define POS "EWSN"
 # define RFLAG 1
 # define NOFLAG 2
@@ -38,37 +38,27 @@
 # define FFLAG 64
 # define CFLAG 128
 # define POSFLAG 256
-/*
-그래픽 부분
-*/
-
-#include <math.h>
-
-#define uDiv 1
-#define vDiv 1
-#define vMove 0.0
+# define U_DIV 1
+# define V_DIV 1
+# define V_MOVE 0.0
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
-// # define mapWidth 24
-// # define mapHeight 24
 # define K_A 0
 # define K_S 1
 # define K_D 2
 # define K_W 13
 # define K_ESE 53
-// #define width 640
-// #define height 480
 
 typedef struct		s_img
 {
-    void			*img;
-    int				*addr;
-    int				bpp;
-    int				size_l;
-    int				endian;
-    int				img_width;
+	void			*img;
+	int				*addr;
+	int				bpp;
+	int				size_l;
+	int				endian;
+	int				img_width;
 	int				img_height;
 }					t_img;
 
@@ -91,7 +81,7 @@ typedef struct		s_sprite
 	double			trans_x;
 	double			trans_y;
 	double			screen_x;
-	int				v_move_screen;
+	int				vm_screen;
 	int				sprite_height;
 	int				draw_start_x;
 	int				draw_end_x;
@@ -112,11 +102,11 @@ typedef struct		s_game
 	int				width;
 	int				height;
 	double			pos_x;
-	double 			pos_y;
-	double 			dir_x;
-	double 			dir_y;
-	double 			plane_x;
-	double 			plane_y;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
 	int				**texture;
 	double			movespeed;
 	double			rotspeed;
@@ -127,6 +117,7 @@ typedef struct		s_game
 	int				ket_esc;
 	int				f_color;
 	int				c_color;
+	int				bmp_flag;
 	t_img			img;
 	double			*zbuf;
 	t_map			*map;
@@ -160,19 +151,6 @@ typedef struct		s_raycast
 	int				color;
 }					t_raycast;
 
-
-// typedef struct		s_calc
-// {
-
-// }
-
-
-int		exit_error(char *s);
-/*
-그래픽 추가 끝
-*/
-
-
 typedef struct		s_options
 {
 	int				r[2];
@@ -187,20 +165,34 @@ typedef struct		s_options
 	int				flags;
 }					t_options;
 
-
-
-int					parse_main(char *f, t_options *op, t_game *g, t_sprite *s);
-// int					parse_main(char *f, t_options *op, t_game *g);
+/*
+**	init part
+*/
 void				init_start(t_options *op, t_game *g, t_sprite *s);
 void				init_sprite(t_sprite *s);
+void				init_direction(t_game *g);
+void				init_texture(t_game *g);
+/*
+**	error part
+*/
+int					exit_error(char *s);
+int					exit_btn(void);
+/*
+**	free part
+*/
+void				final_free(t_options *op, t_game *g);
+int					free_inside(char **input);
+int					free_value(void *ptr);
+/*
+**	parsing part
+*/
+int					parse_main(char *f, t_options *op, t_game *g, t_sprite *s);
 int					parse_identifier(char *line, t_options *op);
 int					input_fc(char **input, t_options *op, int flag);
 int					input_file_one(char **input, t_options *op, int flag);
 int					input_file_two(char **input, t_options *op, int flag);
 int					input_r(char **input, t_options *op);
 int					check_size(char **input);
-int					free_inside(char **input);
-int			 		free_value(void *ptr);
 int					check_identifier(t_options op);
 int					new_map(t_map **m);
 int					add_map_line(t_map *m, char *line);
@@ -209,22 +201,25 @@ int					find_map(char *line, int *flag, t_options *op);
 void				map_check_main(t_map *m, t_game *g);
 void				check_duplication_one(t_options *op, int flag);
 void				check_duplication_two(t_options *op, int flag);
-void				final_free(t_options *op);
-void				init_direction(t_game *g);
-void				init_texture(t_game *g);
+/*
+**	graphic part
+*/
 void				rotation(t_game *g, double degree);
-void		game_main(t_game *g, t_options *op);
-// void		game_main(t_game *g);
-
+void				game_main(t_game *g, t_options *op);
 int					game_loop(t_game *g);
+void				raycasting_main(t_game *g);
+void				graphic(t_game *info);
+void				draw_color(t_game *g, int x, int color, int section);
+void				sprite_main(t_game *g, t_sprite *s);
+void				draw_texture(t_game *g, t_raycast *rc, int x);
+void				draw_sprite(t_game *g, t_sprite *s);
+void				game_display(t_game *g);
+void				load_texture(t_game *g, t_options *op);
+void				load_image(t_game *g, int *texture, char *path, t_img *img);
+int					key_press(int key, t_game *g);
+int					key_release(int key, t_game *g);
+void				key_update(t_game *g, t_map *m);
+int					create_trgb(int r, int g, int b);
+void				save_bmp(t_game *g);
 
-void	load_texture(t_game *g, t_options *op);
-void	load_image(t_game *g, int *texture, char *path, t_img *img);
-int		key_press(int key, t_game *g);
-int		key_release(int key, t_game *g);
-// void	draw(t_game *info);
-void	key_update(t_game *g, t_map *m);
-void	calc(t_game *info);
-// void	calc(t_game *info, t_raycast *rc);
-int	create_trgb(int r, int g, int b);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:06:16 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 00:02:55 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 07:00:53 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		map_check_basic(char c)
 
 static int		map_check_validation(t_map *m, int i, int j)
 {
-	if (j >= ft_strlen(m->map[i]) - 1 || j < 1
+	if (j >= (int)ft_strlen(m->map[i]) - 1 || j < 1
 	|| i >= m->index - 1 || i < 1)
 		return (ERROR);
 	if ((int)ft_strlen(m->map[i + 1]) <= j
@@ -30,11 +30,6 @@ static int		map_check_validation(t_map *m, int i, int j)
 	if (m->map[i - 1][j] == ' ' || m->map[i + 1][j] == ' ' ||
 	m->map[i][j - 1] == ' ' || m->map[i][j + 1] == ' ')
 		return (ERROR);
-	// if (ft_strchr(MAPFLAG, m->map[i - 1][j]) == 0 ||
-	// ft_strchr(MAPFLAG, m->map[i + 1][j]) == 0 ||
-	// ft_strchr(MAPFLAG, m->map[i][j - 1]) == 0 ||
-	// ft_strchr(MAPFLAG, m->map[i][j + 1]) == 0)
-	// 	return (ERROR);
 	return (NO_ERROR);
 }
 

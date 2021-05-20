@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:12:12 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/12 01:20:12 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 07:01:21 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int			check_identifier(t_options op)
 	result = 1;
 	if (op.r[0] == 0 || op.r[1] == 0)
 		result = 0;
-	// if (op.pos[0] == -1 || op.pos[1] == -1)
-	// 	result = 0;
 	if (op.no == 0 || op.so == 0 || op.we == 0 || op.ea == 0 || op.s == 0)
 		result = 0;
 	i = 0;

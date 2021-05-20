@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 19:23:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/19 20:52:04 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 07:04:12 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,14 @@ void	init_sprite(t_sprite *s)
 
 	if (!(s->loc_sprite = ft_calloc(s->num, sizeof(double*))))
 		exit_error("malloc error");
-	i = 0;
-	while (i < s->num)
+	i = -1;
+	while (++i < s->num)
 	{
-		if (!(s->loc_sprite[i++] = ft_calloc(2, sizeof(double))))
+		if (!(s->loc_sprite[i] = ft_calloc(2, sizeof(double))))
 			exit_error("malloc error");
 	}
 	if (!(s->sprite_dist = ft_calloc(s->num, sizeof(double))))
 		exit_error("malloc error");
-
 }
 
 void	init_texture(t_game *g)
@@ -57,10 +56,11 @@ void	init_texture(t_game *g)
 
 	if (!(g->texture = ft_calloc(5, sizeof(int*))))
 		exit_error("malloc error");
-	i = 0;
-	while (i < 5)
+	i = -1;
+	while (++i < 5)
 	{
-		if (!(g->texture[i++] = ft_calloc((TEX_HEIGHT * TEX_WIDTH), sizeof(int))))
+		if (!(g->texture[i] = ft_calloc((TEX_HEIGHT * TEX_WIDTH)
+			, sizeof(int))))
 			exit_error("malloc error");
 	}
 	g->zbuf = malloc(g->width * sizeof(double));

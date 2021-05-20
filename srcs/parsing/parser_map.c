@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 22:35:39 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/12 03:27:53 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 07:02:12 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int				find_map(char *line, int *flag, t_options *op)
 			*flag = 1;
 			break ;
 		}
-		else if (*(line + i) == ' ');
+		else if (*(line + i) == ' ')
+			;
 		else
 			exit_error("not the correct parsing");
 		i++;
