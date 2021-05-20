@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 18:12:15 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 15:31:58 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 16:26:17 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,18 @@ int				main(int argc, char *argv[])
 	t_options	op;
 	t_game		game;
 	t_sprite	s;
+	char		*file_extension;
 
 	if (argc < 2 || argc > 3)
 		exit_error("argument number is not appropriate");
-	if (parse_main(argv[1], &op, &game, &s) == ERROR)
-		exit_error("not the correct parsing");
+	else
+	{
+		file_extension = argv[1] + (ft_strlen(argv[1]) - 4);
+		if (ft_strncmp(file_extension, ".cub", 5))
+			exit_error("first argument is not correct");
+		if (parse_main(argv[1], &op, &game, &s) == ERROR)
+			exit_error("not the correct parsing");
+	}
 	if (argc == 3)
 	{
 		game.bmp_flag = 1;
