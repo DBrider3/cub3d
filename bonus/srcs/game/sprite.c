@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 05:52:52 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 18:08:05 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 10:09:50 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		sort_sprite(t_game *g, t_sprite *s)
 		index[1] = -1;
 		while (++index[1] < s->num - 1)
 		{
-			if (s->sprite_dist[index[0]] < s->sprite_dist[index[1] + 1])
+			if (s->sprite_dist[index[1]] < s->sprite_dist[index[1] + 1])
 			{
 				loc_sprite_tmp[0] = s->loc_sprite[index[1]][0];
 				loc_sprite_tmp[1] = s->loc_sprite[index[1]][1];
@@ -73,7 +73,7 @@ static void		make_sprite_array(t_game *g, t_sprite *s)
 			{
 				if (g->map->map[x][y] == '2')
 					s->tex_num[index] = 4;
-				else
+				else if (g->map->map[x][y] == '3')
 					s->tex_num[index] = 5;
 				s->loc_sprite[index][0] = 1.0 * x + 0.4999;
 				s->loc_sprite[index][1] = 1.0 * y + 0.4999;
