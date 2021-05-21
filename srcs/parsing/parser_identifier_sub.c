@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 02:01:48 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/15 18:04:43 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 09:35:03 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,25 @@ static void			check_flag(char **comma, t_options *op, int flag)
 	}
 }
 
+static int			input_r_check(char **s)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < 2)
+	{
+		j = 0;
+		while (*(s[i] + j))
+		{
+			if (!(ft_isdigit(*(s[i] + j))))
+				return (ERROR);
+			j++;
+		}
+	}
+	return (NO_ERROR);
+}
+
 int					input_r(char **input, t_options *op)
 {
 	int		i;
@@ -71,6 +90,8 @@ int					input_r(char **input, t_options *op)
 	if (check_size(input) != 3)
 		return (ERROR);
 	check_duplication_one(op, 1);
+	if (input_r_check(input + 1))
+		return (ERROR);
 	i = 1;
 	index = 0;
 	while (index < 2)

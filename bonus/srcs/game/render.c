@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 06:00:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 14:53:24 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 18:09:18 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	draw_color(t_game *g, int x, int color, int section)
 {
@@ -59,7 +59,7 @@ void	draw_texture(t_game *g, t_raycast *rc, int x)
 	}
 }
 
-void	draw_sprite(t_game *g, t_sprite *s)
+void	draw_sprite(t_game *g, t_sprite *s, int index)
 {
 	int		y;
 
@@ -76,7 +76,7 @@ void	draw_sprite(t_game *g, t_sprite *s)
 				s->d = (y - s->vm_screen) * 256 - g->height * 128
 						+ s->sprite_height * 128;
 				s->tex_y = ((s->d * TEX_HEIGHT) / s->sprite_height) / 256;
-				s->color = g->texture[4][TEX_WIDTH * s->tex_y + s->tex_x];
+				s->color = g->texture[s->tex_num[index]][TEX_WIDTH * s->tex_y + s->tex_x];
 				if ((s->color & 0x00FFFFFF) != 0)
 					g->img.addr[y * g->img.size_l / 4 \
 					+ s->draw_start_x] = s->color;

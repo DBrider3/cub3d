@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 22:12:38 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/19 23:23:21 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 08:33:25 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ int				parse_main(char *f, t_options *op, t_game *g, t_sprite *s)
 	int		fd;
 
 	if ((fd = open(f, O_RDONLY)) == -1)
-	{
-		printf("tes\n");
 		return (ERROR);
-	}
 	init_start(op, g, s);
 	if (new_map(&op->map))
 		return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:27:52 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/12 03:19:35 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 09:42:27 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ static int			separate_identifier(t_options *op, char **input)
 {
 	int		res;
 
-	if (ft_strncmp(input[0], "R", 1) == 0)
+	if (ft_strncmp(input[0], "R\0", 2) == 0)
 		res = input_r(input, op);
-	else if (ft_strncmp(input[0], "NO", 2) == 0)
+	else if (ft_strncmp(input[0], "NO\0", 3) == 0)
 		res = input_file_one(input, op, 1);
-	else if (ft_strncmp(input[0], "SO", 2) == 0)
+	else if (ft_strncmp(input[0], "SO\0", 3) == 0)
 		res = input_file_one(input, op, 2);
-	else if (ft_strncmp(input[0], "WE", 2) == 0)
+	else if (ft_strncmp(input[0], "WE\0", 3) == 0)
 		res = input_file_two(input, op, 3);
-	else if (ft_strncmp(input[0], "EA", 2) == 0)
+	else if (ft_strncmp(input[0], "EA\0", 3) == 0)
 		res = input_file_two(input, op, 4);
-	else if (ft_strncmp(input[0], "S", 1) == 0)
+	else if (ft_strncmp(input[0], "S\0", 2) == 0)
 		res = input_file_two(input, op, 5);
-	else if (ft_strncmp(input[0], "F", 1) == 0)
+	else if (ft_strncmp(input[0], "F\0", 2) == 0)
 		res = input_fc(input, op, 1);
-	else if (ft_strncmp(input[0], "C", 1) == 0)
+	else if (ft_strncmp(input[0], "C\0", 2) == 0)
 		res = input_fc(input, op, 2);
 	else
 		res = ERROR;

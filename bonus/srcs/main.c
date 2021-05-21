@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 18:12:15 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 16:26:17 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 17:45:51 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void		screen_check(t_options op, t_game *g)
 {
@@ -30,6 +30,12 @@ static void		screen_check(t_options op, t_game *g)
 	}
 }
 
+static void		play_music(void)
+{
+	system("afplay -v -0.30 music/maple_story.mp3 &");
+}
+
+
 static void		start_mlx(t_options *op, t_game *g)
 {
 	g->mlx = mlx_init();
@@ -43,6 +49,7 @@ static void		start_mlx(t_options *op, t_game *g)
 		save_bmp(g);
 	else
 	{
+		play_music();
 		mlx_loop_hook(g->mlx, &game_loop, g);
 		mlx_hook(g->win, KEY_PRESS, 0, &key_press, g);
 		mlx_hook(g->win, KEY_RELEASE, 0, &key_release, g);

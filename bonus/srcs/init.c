@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 19:23:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 07:04:12 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 18:00:23 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	init_start(t_options *op, t_game *g, t_sprite *s)
 {
@@ -48,16 +48,18 @@ void	init_sprite(t_sprite *s)
 	}
 	if (!(s->sprite_dist = ft_calloc(s->num, sizeof(double))))
 		exit_error("malloc error");
+	if (!(s->tex_num = ft_calloc(s->num, sizeof(double))))
+		exit_error("malloc error");
 }
 
 void	init_texture(t_game *g)
 {
 	int		i;
 
-	if (!(g->texture = ft_calloc(5, sizeof(int*))))
+	if (!(g->texture = ft_calloc(6, sizeof(int*))))
 		exit_error("malloc error");
 	i = -1;
-	while (++i < 5)
+	while (++i < 6)
 	{
 		if (!(g->texture[i] = ft_calloc((TEX_HEIGHT * TEX_WIDTH)
 			, sizeof(int))))

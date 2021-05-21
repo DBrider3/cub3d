@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 21:27:11 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 07:00:19 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 17:44:30 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	rotation(t_game *g, double degree)
 {

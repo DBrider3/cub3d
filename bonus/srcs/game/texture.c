@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 22:37:38 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 06:58:52 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 18:25:29 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	load_image(t_game *g, int *texture, char *path, t_img *img)
 {
@@ -38,10 +38,13 @@ void	load_image(t_game *g, int *texture, char *path, t_img *img)
 void	load_texture(t_game *g, t_options *op)
 {
 	t_img	img;
+	char 	*path;
 
+	path = "./textures/slime.xpm";
 	load_image(g, g->texture[0], op->no, &img);
 	load_image(g, g->texture[1], op->so, &img);
 	load_image(g, g->texture[2], op->we, &img);
 	load_image(g, g->texture[3], op->ea, &img);
 	load_image(g, g->texture[4], op->s, &img);
+	load_image(g, g->texture[5], path, &img);
 }

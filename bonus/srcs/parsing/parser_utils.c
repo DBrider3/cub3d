@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:12:12 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 07:01:21 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 17:45:31 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int			check_size(char **input)
 {

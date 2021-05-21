@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:06:16 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 07:00:53 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 17:54:53 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static int		map_check_basic(char c)
 {
@@ -57,7 +57,7 @@ static void		position_check(char c, t_game *g, int x, int y)
 
 static void		sprite_check(char c, t_sprite *s)
 {
-	if (c == '2')
+	if (c == '2' || c== '3')
 		s->num++;
 }
 

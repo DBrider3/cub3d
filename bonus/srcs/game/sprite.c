@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 05:52:52 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 07:54:18 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 18:08:05 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void		distance_sprite(t_game *g, t_sprite *s)
 {
@@ -50,6 +50,7 @@ static void		sort_sprite(t_game *g, t_sprite *s)
 				sprite_dist_tmp = s->sprite_dist[index[1]];
 				s->sprite_dist[index[1]] = s->sprite_dist[index[1] + 1];
 				s->sprite_dist[index[1] + 1] = sprite_dist_tmp;
+				sort_texture_num(s, index[1]);
 			}
 		}
 	}
@@ -68,8 +69,12 @@ static void		make_sprite_array(t_game *g, t_sprite *s)
 		y = 0;
 		while (g->map->map[x][y] != 0)
 		{
-			if (g->map->map[x][y] == '2')
+			if (g->map->map[x][y] == '2' || g->map->map[x][y] == '3')
 			{
+				if (g->map->map[x][y] == '2')
+					s->tex_num[index] = 4;
+				else
+					s->tex_num[index] = 5;
 				s->loc_sprite[index][0] = 1.0 * x + 0.4999;
 				s->loc_sprite[index][1] = 1.0 * y + 0.4999;
 				if (index++ >= s->num)
@@ -117,6 +122,6 @@ void			sprite_main(t_game *g, t_sprite *s)
 	while (++i < s->num)
 	{
 		calc_sprite(g, s, i);
-		draw_sprite(g, s);
+		draw_sprite(g, s, i);
 	}
 }

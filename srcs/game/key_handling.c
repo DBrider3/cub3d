@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 23:17:41 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 15:42:37 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 17:07:30 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		key_press(int key, t_game *g)
 {
 	if (key == K_ESE)
-		exit(0);
+		exit_btn();
 	else if (key == K_W)
 		g->key_w = 1;
 	else if (key == K_A)
@@ -30,7 +30,7 @@ int		key_press(int key, t_game *g)
 int		key_release(int key, t_game *g)
 {
 	if (key == K_ESE)
-		exit(0);
+		exit_btn();
 	else if (key == K_W)
 		g->key_w = 0;
 	else if (key == K_A)

@@ -6,11 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:10:02 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 15:30:58 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/20 17:44:24 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void		input_header(t_game *g, int fd)
 {
