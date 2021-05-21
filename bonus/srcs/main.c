@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 18:12:15 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 17:45:51 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:06:35 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void		play_music(void)
 	system("afplay -v -0.30 music/maple_story.mp3 &");
 }
 
-
 static void		start_mlx(t_options *op, t_game *g)
 {
 	g->mlx = mlx_init();
@@ -54,6 +53,7 @@ static void		start_mlx(t_options *op, t_game *g)
 		mlx_hook(g->win, KEY_PRESS, 0, &key_press, g);
 		mlx_hook(g->win, KEY_RELEASE, 0, &key_release, g);
 		mlx_hook(g->win, 17, 0, exit_btn, 0);
+		mlx_hook(g->win, MOTIONNOTITY, 0, &mouse_move, g);
 		mlx_loop(g->mlx);
 	}
 }

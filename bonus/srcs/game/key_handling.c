@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 23:17:41 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 17:44:36 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:07:56 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	key_update(t_game *g, t_map *m)
 		if (ft_strchr("0NESW", m->map[(int)(g->pos_x + g->dir_x * g->movespeed)]
 		[(int)(g->pos_y)]) > 0)
 			g->pos_x += g->dir_x * g->movespeed;
-		if (ft_strchr(" 0NESW",m->map[(int)(g->pos_x)]
+		if (ft_strchr(" 0NESW", m->map[(int)(g->pos_x)]
 		[(int)(g->pos_y + g->dir_y * g->movespeed)]) > 0)
 			g->pos_y += g->dir_y * g->movespeed;
 	}

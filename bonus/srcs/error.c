@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 22:02:04 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 17:45:40 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:06:47 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		exit_btn(void)
 	exit(0);
 }
 
-int		exit_error(char *s)
+int				exit_error(char *s)
 {
 	printf("Error\n: %s\n", s);
 	exit(0);

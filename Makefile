@@ -6,7 +6,7 @@
 #    By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/14 18:06:38 by dcho              #+#    #+#              #
-#    Updated: 2021/05/21 08:26:48 by dcho             ###   ########.fr        #
+#    Updated: 2021/05/21 22:20:40 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,8 @@ SRCS_B =	./bonus/srcs/main.c							\
 			./bonus/srcs/game/sprite.c						\
 			./bonus/srcs/game/render.c						\
 			./bonus/srcs/game/bmp.c							\
-			./bonus/srcs/game/sprite_multi.c
+			./bonus/srcs/game/sprite_sort.c				\
+			./bonus/srcs/game/mouse.c
 
 SRC_DIR = ./srcs/
 SRCS = $(addprefix $(SRC_DIR),$(SRC))

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 18:06:04 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 17:43:15 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 13:26:01 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ int					exit_btn(void);
 **	free part
 */
 void				final_free(t_options *op, t_game *g);
+// void				final_free(t_options *op);
 int					free_inside(char **input);
 int					free_value(void *ptr);
 /*

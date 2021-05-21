@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 06:00:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 18:09:18 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:08:31 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	draw_sprite(t_game *g, t_sprite *s, int index)
 				s->d = (y - s->vm_screen) * 256 - g->height * 128
 						+ s->sprite_height * 128;
 				s->tex_y = ((s->d * TEX_HEIGHT) / s->sprite_height) / 256;
-				s->color = g->texture[s->tex_num[index]][TEX_WIDTH * s->tex_y + s->tex_x];
+				s->color = g->texture[s->tex_num[index]]\
+				[TEX_WIDTH * s->tex_y + s->tex_x];
 				if ((s->color & 0x00FFFFFF) != 0)
 					g->img.addr[y * g->img.size_l / 4 \
 					+ s->draw_start_x] = s->color;

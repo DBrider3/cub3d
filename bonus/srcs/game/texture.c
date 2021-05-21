@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 22:37:38 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 18:25:29 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:07:35 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	load_image(t_game *g, int *texture, char *path, t_img *img)
 void	load_texture(t_game *g, t_options *op)
 {
 	t_img	img;
-	char 	*path;
+	char	*path;
 
 	path = "./textures/slime.xpm";
 	load_image(g, g->texture[0], op->no, &img);

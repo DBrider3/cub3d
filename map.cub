@@ -1,4 +1,4 @@
-R 1920 1080
+R 600 400
 NO ./textures/wall_n.xpm
 SO ./textures/wall_s.xpm
 WE ./textures/wall_w.xpm
@@ -7,7 +7,7 @@ EA ./textures/wall_e.xpm
 S ./textures/barrel.xpm
 
 F 110,153,15
-C 255,255,255
+C 255,255,100
 
 111111111111111111111111111111111
 10000020020000001100000000000001

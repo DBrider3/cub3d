@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:06:16 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 17:54:53 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:18:19 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		position_check(char c, t_game *g, int x, int y)
 
 static void		sprite_check(char c, t_sprite *s)
 {
-	if (c == '2' || c== '3')
+	if (c == '2' || c == '3')
 		s->num++;
 }
 

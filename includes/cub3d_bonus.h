@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 18:06:04 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/20 18:08:19 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:22:26 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define K_D 2
 # define K_W 13
 # define K_ESE 53
+# define MOTIONNOTITY 6
 
 typedef struct		s_img
 {
@@ -123,6 +124,7 @@ typedef struct		s_game
 	double			*zbuf;
 	t_map			*map;
 	t_sprite		*sprite;
+	int				mouse_old_x;
 }					t_game;
 
 typedef struct		s_raycast
@@ -226,6 +228,7 @@ void				save_bmp(t_game *g);
 /*
 ** bonus
 */
-void				sort_texture_num(t_sprite *s, int index);
+void				sort_sprite(t_game *g, t_sprite *s);
+int					mouse_move(int x, int y, t_game *g);
 
 #endif
