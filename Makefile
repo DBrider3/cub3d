@@ -6,7 +6,7 @@
 #    By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/14 18:06:38 by dcho              #+#    #+#              #
-#    Updated: 2021/05/21 22:20:40 by dcho             ###   ########.fr        #
+#    Updated: 2021/05/21 22:58:31 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LDFLAGS = -L . -L $(LIBMLX_DIR) -L $(LIBFT_DIR)
 RM = rm -f
 
 NAME = cub3D
+NAME_B = cub3D_B
 
 SRC =	main.c								\
 		init.c								\
@@ -108,6 +109,8 @@ fclean: clean
 re : fclean all
 
 bonus : $(OBJS_B)
+
+$(NAME_B) : $(OBJS)
 		@make -C $(LIBFT_DIR) all
 		@make -C $(LIBMLX_DIR) all
 		cp $(LIBMLX_DIR)/$(LIBMLX) .
