@@ -6,7 +6,7 @@
 #    By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/14 18:06:38 by dcho              #+#    #+#              #
-#    Updated: 2021/05/21 22:58:31 by dcho             ###   ########.fr        #
+#    Updated: 2021/05/22 14:57:20 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,30 +46,30 @@ SRC =	main.c								\
 		game/render.c						\
 		game/bmp.c
 
-SRCS_B =	./bonus/srcs/main.c							\
-			./bonus/srcs/init.c							\
-			./bonus/srcs/error.c							\
-			./bonus/srcs/free.c							\
-			./bonus/srcs/gnl/get_next_line.c				\
-			./bonus/srcs/gnl/get_next_line_utils.c			\
-			./bonus/srcs/parsing/parser.c					\
-			./bonus/srcs/parsing/parser_utils.c			\
-			./bonus/srcs/parsing/parser_identifier.c		\
-			./bonus/srcs/parsing/parser_identifier_sub.c	\
-			./bonus/srcs/parsing/parser_map.c				\
-			./bonus/srcs/parsing/map_validation.c			\
-			./bonus/srcs/parsing/parser_dup.c				\
-			./bonus/srcs/game/game.c						\
-			./bonus/srcs/game/key_handling.c				\
-			./bonus/srcs/game/texture.c					\
-			./bonus/srcs/game/graphic.c					\
-			./bonus/srcs/game/color.c						\
-			./bonus/srcs/game/raycasting.c					\
-			./bonus/srcs/game/sprite.c						\
-			./bonus/srcs/game/render.c						\
-			./bonus/srcs/game/bmp.c							\
-			./bonus/srcs/game/sprite_sort.c				\
-			./bonus/srcs/game/mouse.c
+SRCS_B =	./bonus/srcs/main_bonus.c							\
+			./bonus/srcs/init_bonus.c							\
+			./bonus/srcs/error_bonus.c							\
+			./bonus/srcs/free_bonus.c							\
+			./bonus/srcs/gnl/get_next_line_bonus.c				\
+			./bonus/srcs/gnl/get_next_line_utils_bonus.c			\
+			./bonus/srcs/parsing/parser_bonus.c					\
+			./bonus/srcs/parsing/parser_utils_bonus.c			\
+			./bonus/srcs/parsing/parser_identifier_bonus.c		\
+			./bonus/srcs/parsing/parser_identifier_sub_bonus.c	\
+			./bonus/srcs/parsing/parser_map_bonus.c				\
+			./bonus/srcs/parsing/map_validation_bonus.c			\
+			./bonus/srcs/parsing/parser_dup_bonus.c				\
+			./bonus/srcs/game/game_bonus.c						\
+			./bonus/srcs/game/key_handling_bonus.c				\
+			./bonus/srcs/game/texture_bonus.c					\
+			./bonus/srcs/game/graphic_bonus.c					\
+			./bonus/srcs/game/color_bonus.c						\
+			./bonus/srcs/game/raycasting_bonus.c					\
+			./bonus/srcs/game/sprite_bonus.c						\
+			./bonus/srcs/game/render_bonus.c						\
+			./bonus/srcs/game/bmp_bonus.c							\
+			./bonus/srcs/game/sprite_sort_bonus.c				\
+			./bonus/srcs/game/mouse_bonus.c
 
 SRC_DIR = ./srcs/
 SRCS = $(addprefix $(SRC_DIR),$(SRC))
@@ -108,16 +108,16 @@ fclean: clean
 
 re : fclean all
 
-bonus : $(OBJS_B)
+bonus : $(NAME_B)
 
-$(NAME_B) : $(OBJS)
+$(NAME_B) : $(OBJS_B)
 		@make -C $(LIBFT_DIR) all
 		@make -C $(LIBMLX_DIR) all
 		cp $(LIBMLX_DIR)/$(LIBMLX) .
 		$(CC) $(CFLAGS) $^ \
 		$(LDFLAGS) -lft -lmlx\
 		-framework OpenGL -framework AppKit -lz\
-		-o cub3D
+		-o $@
 
 
 .PHONY : all clean fclean re
