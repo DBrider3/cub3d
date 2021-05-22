@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 18:12:15 by dcho              #+#    #+#             */
-/*   Updated: 2021/05/21 17:39:20 by dcho             ###   ########.fr       */
+/*   Updated: 2021/05/22 17:02:33 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int				main(int argc, char *argv[])
 	}
 	// 본격적인 mlx 시작
 	start_mlx(&op, &game);
-	// exit(0);
-	// final_free(&op);
 	final_free(&op, &game);
 	return (0);
 }

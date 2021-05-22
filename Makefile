@@ -6,7 +6,7 @@
 #    By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/14 18:06:38 by dcho              #+#    #+#              #
-#    Updated: 2021/05/22 14:57:20 by dcho             ###   ########.fr        #
+#    Updated: 2021/05/22 14:59:13 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +104,7 @@ clean:
 
 fclean: clean
 		$(RM) $(NAME)
+		$(RM) $(NAME_B)
 		@make -C $(LIBFT_DIR) fclean
 
 re : fclean all
